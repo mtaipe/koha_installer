@@ -14,33 +14,33 @@ fi
 echo "deb [signed-by=$gpg_key_file] https://debian.koha-community.org/koha stable main" > /etc/apt/sources.list.d/koha.list
 
 # Update the system
-sudo apt-get update
-sudo apt-get upgrade -y
+apt-get update
+apt-get upgrade -y
 
 # Install MariaDB
-sudo apt-get install mariadb-server
+apt-get install mariadb-server
 
 # Download and install Koha
-sudo apt-get install -y koha-common
+apt-get install -y koha-common
 
 # Configure Apache for Koha
-sudo a2enmod rewrite
-sudo a2enmod cgi
-sudo systemctl restart apache2
+a2enmod rewrite
+a2enmod cgi
+systemctl restart apache2
 
 # Customize configuration file
-sudo sed -i "s/DOMAIN=.*/DOMAIN=\"\.$domain\"/" /etc/koha/koha-sites.conf
+sed -i "s/DOMAIN=.*/DOMAIN=\"\.$domain\"/" /etc/koha/koha-sites.conf
 
 # Set up the Koha instance
-sudo koha-create --create-db $library_name
+koha-create --create-db $library_name
 
 # Start services
-sudo systemctl start mariadb
-sudo systemctl enable mariadb
-sudo systemctl start koha-common
-sudo systemctl enable koha-common
-sudo systemctl start apache2
-sudo systemctl enable apache2
+systemctl start mariadb
+systemctl enable mariadb
+systemctl start koha-common
+systemctl enable koha-common
+systemctl start apache2
+systemctl enable apache2
 
 ip_address=$(hostname -I | awk '{print $1}')
 

@@ -5,7 +5,7 @@ Ubuntu 22.04 - jammy
 
 ## Running the script
 chmod +x install_koha.sh
-./install_koha.sh
+sudo ./install_koha.sh
 
 ### Post installation
 The script will show the DNS records you need to create so
