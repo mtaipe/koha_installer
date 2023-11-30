@@ -17,8 +17,8 @@ echo "deb [signed-by=$gpg_key_file] https://debian.koha-community.org/koha stabl
 apt-get update
 apt-get upgrade -y
 
-# Install MariaDB
-apt-get install mariadb-server
+# Install MariaDB, Systemd and 
+apt-get install -y mariadb-server systemd systemctl
 
 # Download and install Koha
 apt-get install -y koha-common
