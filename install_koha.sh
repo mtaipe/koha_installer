@@ -17,11 +17,8 @@ echo "deb [signed-by=$gpg_key_file] https://debian.koha-community.org/koha stabl
 apt-get update
 apt-get upgrade -y
 
-# Install MariaDB, Systemd and 
-apt-get install -y mariadb-server systemd systemctl
-
-# Download and install Koha
-apt-get install -y koha-common
+# Install Koha and friends
+apt-get install -y mariadb-server systemd koha-common
 
 # Configure Apache for Koha
 a2enmod rewrite
