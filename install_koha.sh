@@ -4,8 +4,10 @@
 read -p "Enter the library name: " library_name
 read -p "Enter the domain (e.g., example.com): " domain
 
+apt-get -y  install wget gpg
+
 # Check if the GPG key file exists, and fetch it if not
-gpg_key_file="/usr/share/keyrings/koha-keyring.gpg"
+gpg_key_file="/etc/apt/trusted.gpg.d/koha-keyring.gpg"
 if [ ! -f "$gpg_key_file" ]; then
     wget -qO - https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor -o "$gpg_key_file"
 fi
@@ -28,6 +30,8 @@ systemctl restart apache2
 # Customize configuration file
 sed -i "s/DOMAIN=.*/DOMAIN=\"\.$domain\"/" /etc/koha/koha-sites.conf
 
+# Avoid apache warnings
+echo "ServerName koha" >> /etc/apache2/apache2.conf
 # Set up the Koha instance
 koha-create --create-db $library_name
 
